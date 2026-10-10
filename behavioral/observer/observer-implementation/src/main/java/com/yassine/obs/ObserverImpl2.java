@@ -16,6 +16,7 @@ public class ObserverImpl2 implements Observer {
         for(int i=0;i<size;i++){
             sum+=history.get(i);
         }
+        System.out.println("$$$$$$$$$ ObserverImpl2 $$$$$$$$$");
         System.out.println("La moyenne="+sum/size);
     }
 }
