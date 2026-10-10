@@ -3,6 +3,9 @@ package com.yassine;
 import com.yassine.composants.Boisson;
 import com.yassine.composants.Espresso;
 import com.yassine.composants.Sumatra;
+import com.yassine.decorateur.Caramel;
+import com.yassine.decorateur.Chocolat;
+import com.yassine.decorateur.Noisette;
 
 /**
  * @author pc
@@ -15,7 +18,15 @@ public class Main {
         System.out.println(boisson.getDescription());
         System.out.println(boisson.cout());
         System.out.println("*******************");
-        boisson=new Espresso();
+        boisson=new Chocolat(boisson);
+        System.out.println(boisson.getDescription());
+        System.out.println(boisson.cout());
+        System.out.println("*******************");
+        boisson=new Caramel(boisson);
+        System.out.println(boisson.getDescription());
+        System.out.println(boisson.cout());
+        System.out.println("*******************");
+        boisson=new Noisette(boisson);
         System.out.println(boisson.getDescription());
         System.out.println(boisson.cout());
     }
