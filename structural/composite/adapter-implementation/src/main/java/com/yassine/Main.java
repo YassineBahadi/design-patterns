@@ -12,5 +12,6 @@ public class Main {
         UniteCentrale uniteCentrale = new UniteCentrale();
         uniteCentrale.setVga(new Ecran());
         uniteCentrale.print("Hello World");
+        uniteCentrale.setVga(new Tv());
     }
 }
