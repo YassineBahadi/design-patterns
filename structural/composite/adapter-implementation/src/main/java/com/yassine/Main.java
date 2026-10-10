@@ -1,7 +1,9 @@
 package com.yassine;
 
 import com.yassine.computer.Ecran;
+import com.yassine.computer.TV;
 import com.yassine.computer.UniteCentrale;
+import com.yassine.computer.adapter.HdmiVgaAdapter;
 
 /**
  * @author pc
@@ -11,7 +13,10 @@ public class Main {
     public static void main(String[] args) {
         UniteCentrale uniteCentrale = new UniteCentrale();
         uniteCentrale.setVga(new Ecran());
-        uniteCentrale.print("Hello World");
-        uniteCentrale.setVga(new Tv());
+        uniteCentrale.print("Bonjour");
+        HdmiVgaAdapter adapter = new HdmiVgaAdapter();
+        adapter.setHdmi(new TV());
+        uniteCentrale.setVga(adapter);
+        adapter.print("Bonsoir GLSID");
     }
 }
