@@ -1,6 +1,7 @@
 package com.yassine;
 
 import com.yassine.computer.Ecran;
+import com.yassine.computer.SuperVP;
 import com.yassine.computer.TV;
 import com.yassine.computer.UniteCentrale;
 import com.yassine.computer.adapter.HdmiVgaAdapter;
@@ -18,5 +19,8 @@ public class Main {
         adapter.setHdmi(new TV());
         uniteCentrale.setVga(adapter);
         adapter.print("Bonsoir GLSID");
+
+        uniteCentrale.setVga(new SuperVP());
+        uniteCentrale.print("Hello");
     }
 }
