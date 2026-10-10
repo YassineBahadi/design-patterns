@@ -13,8 +13,13 @@ public class Main {
         Observer observer2=new ObserverImpl2();
         observable.subscribe(observer1);
         observable.subscribe(observer2);
+        observable.subscribe(newState -> {
+            System.out.println("+++++++ ObserverImpl3 +++++++");
+            System.out.println("Resultat="+newState*newState);
+        });
         observable.setState(10);
         observable.setState(20);
+        observable.unsubscribe(observer2);
         observable.setState(30);
         observable.setState(40);
     }
