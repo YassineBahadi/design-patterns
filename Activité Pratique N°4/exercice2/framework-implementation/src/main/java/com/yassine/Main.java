@@ -1,6 +1,7 @@
 package com.yassine;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @author pc
@@ -8,29 +9,57 @@ import java.util.Arrays;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        int[] image = {100, 120, 130, 140, 150, 160};
-        System.out.println("original image " + Arrays.toString(image));
+        Scanner scanner = new Scanner(System.in);
+
+        int[] image = {50, 70, 90, 110, 130, 150};
+        System.out.println("=== FrameWork of image filtring and compressing ===");
+        System.out.println("The actual information of the image " + Arrays.toString(image));
+        System.out.println("----------------------------------------------");
 
         ImageProcessor processor = new ImageProcessor(image);
 
-        processor.setFilterStrategy(new BrightnessFilter());
-        int[] filteredImage = processor.executeFilter();
-        System.out.println("result after brightness filter" + Arrays.toString(filteredImage));
+        System.out.print("Enter the complet name of the filter example :  BrightnessFilter ");
+        String filterClassName = scanner.nextLine();
 
-        System.out.println("----------------------------------------");
+        try {
+            Class<?> filterClass = Class.forName(filterClassName);
 
-        ImplNonStandard oldSystem = new ImplNonStandard();
-        FilterStrategy adaptedFilter = new FilterAdapter(oldSystem, "VintageFilter");
+            FilterStrategy userFilter = (FilterStrategy) filterClass.getDeclaredConstructor().newInstance();
 
-        processor.setFilterStrategy(adaptedFilter);
-        int[] oldFilteredImage = processor.executeFilter();
-        System.out.println("result after adapter filter " + Arrays.toString(oldFilteredImage));
+            processor.setFilterStrategy(userFilter);
 
-        System.out.println("----------------------------------------");
+            int[] filteredImage = processor.executeFilter();
+            System.out.println("The result after Filter" + Arrays.toString(filteredImage));
 
-        processor.setImageCompressor(new LosslessCompressor());
-        int[] compressedImage = processor.executeCompression();
-        System.out.println("final result after compression " + Arrays.toString(compressedImage));
+        } catch (ClassNotFoundException e) {
+            System.err.println("No filter found with this name " + filterClassName);
+        } catch (Exception e) {
+            System.err.println("Error during fintring process " + e.getMessage());
+        }
+
+        System.out.println("----------------------------------------------");
+
+        System.out.print("Enter the complet name of the compresor");
+        String compressClassName = scanner.nextLine();
+
+        try {
+            Class<?> compressClass = Class.forName(compressClassName);
+
+            ImageCompressor userCompressor = (ImageCompressor) compressClass.getDeclaredConstructor().newInstance();
+
+            processor.setImageCompressor(userCompressor);
+
+            int[] compressedImage = processor.executeCompression();
+            System.out.println("The final result after compressing" + Arrays.toString(compressedImage));
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("No compresor found " + compressClassName);
+        } catch (Exception e) {
+            System.err.println("Error during processing process" + e.getMessage());
+        }
+
+        scanner.close();
+        System.out.println("==============================================");
 
     }
 }
