@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @EnableAspectJAutoProxy
 public class LogAspect {
     Logger logger = Logger.getLogger(LogAspect.class.getName());
-    @Around("execution(* com.yassine.service..*(..))")
+    @Around("@annotation(com.yassine.aspects.Log)")
     public Object log(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long t1=System.currentTimeMillis();
        logger.info("From Logging Aspects ... Before "+proceedingJoinPoint.getSignature());
