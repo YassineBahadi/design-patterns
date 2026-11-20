@@ -1,6 +1,9 @@
 package com.yassine.repository;
 
+import com.yassine.model.AccountStatus;
+import com.yassine.model.AccountType;
 import com.yassine.model.BankAccount;
+import com.yassine.model.BankDirector;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +60,13 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     public void populateData(){
         for(int i=0;i<10;i++){
-            BankAccount account=new BankAccount();
+            BankAccount account= BankDirector.accountBuilder()
+                    .balance(1000*Math.random()*9000)
+                    .type(Math.random()>0.5? AccountType.SAVING_ACCOUNT:AccountType.CURRENT_ACCOUNT)
+                    .status(Math.random()>0.5? AccountStatus.CREATED:AccountStatus.ACTIVATED)
+                    .currency(Math.random()>0.5?"EUR":"USD")
+                    .build();
+            save(account);
         }
     }
 }
