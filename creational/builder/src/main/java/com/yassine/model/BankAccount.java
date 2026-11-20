@@ -59,4 +59,15 @@ public class BankAccount {
     public void setStatus(AccountStatus status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "accountId=" + accountId +
+                ", balance=" + balance +
+                ", currency='" + currency + '\'' +
+                ", type=" + type +
+                ", status=" + status +
+                '}';
+    }
 }
