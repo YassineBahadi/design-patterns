@@ -10,6 +10,18 @@ import com.yassine.model.BankAccount;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        BankAccount account2=new BankAccount(3L,5600,"EUR",AccountType.SAVING_ACCOUNT,AccountStatus.CREATED);
+        System.out.println("========== Account 2 With Constructor ============");
+        System.out.println(account2.toString());
+
+        BankAccount account = new BankAccount();
+        account.setAccountId(2L);
+        account.setType(AccountType.SAVING_ACCOUNT);
+        account.setStatus(AccountStatus.CREATED);
+        account.setCurrency("EUR");
+        System.out.println("========== Account with Setters ============");
+        System.out.println(account.toString());
+
         BankAccount bankAccount= BankAccount.builder()
                 .accountId(1L)
                 .currency("EUR")
@@ -18,6 +30,7 @@ public class Main {
                 .balance(80000)
                 .build();
 
+        System.out.println("==========  BankAccount with Builder    ============");
         System.out.println(bankAccount.toString());
     }
 }
