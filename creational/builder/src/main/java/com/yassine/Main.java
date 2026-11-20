@@ -3,6 +3,7 @@ package com.yassine;
 import com.yassine.model.AccountStatus;
 import com.yassine.model.AccountType;
 import com.yassine.model.BankAccount;
+import com.yassine.model.Director;
 
 /**
  * @author pc
@@ -22,13 +23,21 @@ public class Main {
         System.out.println("========== Account with Setters ============");
         System.out.println(account.toString());
 
-        BankAccount bankAccount= BankAccount.builder()
+        BankAccount bankAccount = Director.accountBuilder()
                 .accountId(1L)
                 .currency("EUR")
                 .status(AccountStatus.CREATED)
                 .type(AccountType.SAVING_ACCOUNT)
                 .balance(80000)
                 .build();
+
+//        BankAccount bankAccount= BankAccount.builder()
+//                .accountId(1L)
+//                .currency("EUR")
+//                .status(AccountStatus.CREATED)
+//                .type(AccountType.SAVING_ACCOUNT)
+//                .balance(80000)
+//                .build();
 
         System.out.println("==========  BankAccount with Builder    ============");
         System.out.println(bankAccount.toString());
