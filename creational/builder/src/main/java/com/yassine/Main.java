@@ -5,8 +5,11 @@ import com.yassine.model.AccountType;
 import com.yassine.model.BankAccount;
 import com.yassine.model.BankDirector;
 import com.yassine.repository.AccountRepositoryImpl;
+import com.yassine.util.JsonSerializer;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * @author pc
@@ -14,11 +17,34 @@ import java.util.List;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        JsonSerializer<BankAccount> bankAccountJsonSerializer=new JsonSerializer<>();
         AccountRepositoryImpl accountRepository=new AccountRepositoryImpl();
         accountRepository.populateData();
         List<BankAccount> bankAccounts= accountRepository.findAll();
-        bankAccounts.forEach(System.out::println);
+        bankAccounts.stream()
+                .map(bankAccountJsonSerializer::toJson)
+                .forEach(System.out::println);
 
+        
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+        BankAccount accountById = accountRepository.findById(11L).orElse(null);
+        if(accountById!=null){
+            System.out.println(bankAccountJsonSerializer.toJson(accountById));
+        }
+        else{
+            System.out.println("Account not found");
+        }
+
+        List<BankAccount> bankAccounts2 = accountRepository.searchAccounts(new Predicate<BankAccount>() {
+            @Override
+            public boolean test(BankAccount account) {
+                return account.getType().equals(AccountType.CURRENT_ACCOUNT);
+            }
+        });
+        bankAccounts2.stream()
+                .map(bankAccountJsonSerializer::toJson)
+                .forEach(System.out::println);
 
 
 //        BankAccount account2=new BankAccount(3L,5600,"EUR",AccountType.SAVING_ACCOUNT,AccountStatus.CREATED);
